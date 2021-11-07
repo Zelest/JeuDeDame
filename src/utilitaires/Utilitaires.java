@@ -5,7 +5,7 @@ public class Utilitaires {
 		for (int i = 0; i < plateau.length; i++) {
 			for (int j = 0; j< plateau[i].length; j++) {
 				plateau[i][j] = '0';
-			}
+			}		
 		}
 	}
 	
