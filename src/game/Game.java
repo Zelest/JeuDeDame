@@ -1,15 +1,17 @@
 package game;
 
+import model.Pions;
+
 import utilitaires.Utilitaires;
 
 public class Game {
 	int Largeur = 10;
 	int Hauteur = 10;
-	char[][] plateau = new char[Largeur][Hauteur];
+	Pions[][] plateau = new Pions[Largeur][Hauteur];
 	
 	public void game() {
 		Utilitaires.initPlateau(plateau);
-		Utilitaires.printArray2D(plateau);
+		Utilitaires.printPlateau(plateau);
 	}
 	
 
