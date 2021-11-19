@@ -24,7 +24,7 @@ public class Game {
 		Utilitaires.tradPions(colonne);
 		Utilitaires.tradPions(ligne);
 		//on a les coor du pions choisie
-		
+		//je sais pas comment faire pour choisir le pions mtn :(
 	}
 	
 	
