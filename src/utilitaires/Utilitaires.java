@@ -2,6 +2,7 @@ package utilitaires;
 
 import java.util.Scanner;
 
+import game.Game;
 import model.Pions;
 import model.PionsBlanc;
 import model.PionsNoir;
@@ -14,10 +15,12 @@ public class Utilitaires {
 				if (i%2!=0) {
 					if (j%2==0) {
 						plateau[i][j]= new PionsNoir(i, j, false, 2);
+						Game.createPion(i,j, false, 2);
 					}
 				}else if (i%2==0) {
 					if(j%2!=0) {
 						plateau[i][j]= new PionsNoir(i, j, false, 2);
+						Game.createPion(i,j, false, 2);
 					}
 				}
 			}		
@@ -28,10 +31,12 @@ public class Utilitaires {
 				if (i%2!=0) {
 					if (j%2==0) {
 						plateau[i][j]= new PionsBlanc(i, j, false, 1);
+						Game.createPion(i,j, false, 1);
 					}
 				}else if (i%2==0) {
 					if(j%2!=0) {
 						plateau[i][j]= new PionsBlanc(i, j, false, 1);
+						Game.createPion(i,j, false, 1);
 					}
 				}
 			}
@@ -67,5 +72,11 @@ public class Utilitaires {
 		catch(Exception e) {	
 		}
 		return i;
+	}
+	
+	public static String giveString() {
+		Scanner sc = new Scanner(System.in);
+		String s = sc.nextLine();
+		return s;
 	}
 }
