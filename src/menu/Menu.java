@@ -11,7 +11,7 @@ public static void menuPrincipal(Pions[][] plateau) {
 		System.out.println("1 Joueur contre Ordinateur");
 		System.out.println("2 Joueur contre Joueur");
 		System.out.println("3 Exit");
-		System.out.println("4 print map");
+		System.out.println("4 test");
 		
 		int saisieMenu = Utilitaires.readInt();
 		
@@ -30,9 +30,8 @@ public static void menuPrincipal(Pions[][] plateau) {
 			break;
 			//test
 		case 4 :
-			System.out.println("plateau");
-			Utilitaires.initPlateau(plateau);
-			Utilitaires.printPlateau(plateau);
+			System.out.println("Entrer la colonne du pions que vous voulez bouger : ");
+			Utilitaires.readChar();
 			break;
 		}
 	}

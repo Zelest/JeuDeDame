@@ -16,14 +16,26 @@ public class Game {
 		Menu.menuPrincipal(plateau);
 	}
 	
+	public void choixPions() {
+		System.out.println("Entrer la colonne du pions que vous voulez bouger : ");
+		char colonne = Utilitaires.readChar();
+		System.out.println("Entrer la ligne du pions que vous voulez bouger : ");
+		char ligne = Utilitaires.readChar();
+		Utilitaires.tradPions(colonne);
+		Utilitaires.tradPions(ligne);
+		//on a les coor du pions choisie
+		
+	}
+	
+	
 	public void move() {
-		//selectionner un poins (entrée String ex: A6) 
-		//besoin de traduire A6 en coor du tableau pour retrouver le pions ?
+
 		//if controledbyUser or not 
 		//ControledbyUser =>	Demander vers où bouger (entreé String ex B5 ou Haut gauche, haut droite etc...)
 		//Not controledByUser => 	choisir un pions random a bouger puis random mouv (creer un randomformouv et respecter les regles)
-		String pionsChoisie = Utilitaires.giveString();
+		//
 		//ligne 21
+
 		if (	.isControledByUser()) {
 			System.out.println("Entrer un placement" + "1 : haut gauche, 2 : haut droite, 3 : bas gauche, 4 : bas droite. ");
 			manipPion(Utilitaires.readInt(), pions);
