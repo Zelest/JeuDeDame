@@ -1,8 +1,7 @@
 package game;
 
+import menu.Menu;
 import model.Pions;
-
-import utilitaires.Utilitaires;
 
 public class Game {
 	int Largeur = 10;
@@ -10,8 +9,7 @@ public class Game {
 	Pions[][] plateau = new Pions[Largeur][Hauteur];
 	
 	public void game() {
-		Utilitaires.initPlateau(plateau);
-		Utilitaires.printPlateau(plateau);
+		Menu.menuPrincipal(plateau);
 	}
 	
 
