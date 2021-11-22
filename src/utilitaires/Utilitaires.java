@@ -46,7 +46,7 @@ public class Utilitaires {
 	public static void printPlateau(Pions[][] plateau) {
 		System.out.println("  A B C D E F G H I J");
 		for(int i = 0; i < 10; i++) {
-			System.out.print(9-i);
+			System.out.print(i);
 			for(int j = 0; j < 10; j++) {
 				System.out.print("|");
 				if(plateau[i][j]==null) {
@@ -58,7 +58,7 @@ public class Utilitaires {
 				}
 			}
 			System.out.print("|");
-			System.out.println(9-i);
+			System.out.println(i);
 		}
 		System.out.println("  A B C D E F G H I J");
 	}
