@@ -23,6 +23,7 @@ public class Game {
 	}
 	public static void initUsernames() {
 		Inputs input =new Inputs();
+		
 		do {
 		System.out.println("nom joueur 1:");
 			joueur1.setNom(input.stringInput());
