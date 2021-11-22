@@ -1,5 +1,8 @@
 package utilitaires;
 
+import java.util.Scanner;
+
+import game.Game;
 import model.Pions;
 import model.PionsBlanc;
 import model.PionsNoir;
@@ -11,11 +14,13 @@ public class Utilitaires {
 			for (int j = 0; j< 10; j++) {
 				if (i%2!=0) {
 					if (j%2==0) {
-						plateau[i][j]= new PionsNoir();
+						plateau[i][j]= new PionsNoir(i, j, false, 2);
+						Game.createPion(i,j, false, 2);
 					}
 				}else if (i%2==0) {
 					if(j%2!=0) {
-						plateau[i][j]= new PionsNoir();
+						plateau[i][j]= new PionsNoir(i, j, false, 2);
+						Game.createPion(i,j, false, 2);
 					}
 				}
 			}		
@@ -25,11 +30,13 @@ public class Utilitaires {
 			for (int j=0;j<10;j++) {
 				if (i%2!=0) {
 					if (j%2==0) {
-						plateau[i][j]= new PionsBlanc();
+						plateau[i][j]= new PionsBlanc(i, j, false, 1);
+						Game.createPion(i,j, false, 1);
 					}
 				}else if (i%2==0) {
 					if(j%2!=0) {
-						plateau[i][j]= new PionsBlanc();
+						plateau[i][j]= new PionsBlanc(i, j, false, 1);
+						Game.createPion(i,j, false, 1);
 					}
 				}
 			}
@@ -55,4 +62,70 @@ public class Utilitaires {
 		}
 		System.out.println("  A B C D E F G H I J");
 	}
+	
+	public static int readInt() {
+		Scanner sc = new Scanner(System.in);
+		int i = 0;
+		try{
+			i = sc.nextInt();
+		}
+		catch(Exception e) {	
+		}
+		return i;
+	}
+	
+	public static String giveString() {
+		Scanner sc = new Scanner(System.in);
+		String s = sc.nextLine();
+		return s;
+	}
+	
+	public static char readChar() {
+		Scanner sc = new Scanner(System.in);
+		char s = sc.next().charAt(0);
+		return s;
+	}
+	
+	public static char tradPions(char x) {
+		if (x == 'A') {
+			x = 1;
+		}else if (x == 'B') {
+			x = 2;
+		}else if (x == 'C') {
+			x = 3;
+		}else if (x == 'D') {
+			x = 4;
+		}else if (x == 'E') {
+			x = 5;
+		}else if (x == 'F') {
+			x = 6;
+		}else if (x == 'G') {
+			x = 7;
+		}else if (x == 'H') {
+			x = 8;
+		}else if (x == 'I') {
+			x = 9;
+		}else {
+			x = 10;
+		}
+		return x;
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 }
