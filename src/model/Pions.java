@@ -6,19 +6,19 @@ public class Pions {
 	int y;
 	boolean controledByUser;
 	
-	public Pions(int x, int y, boolean controledByUser, int equipe) {
+	public Pions(int x, int y, boolean controledByUser, boolean equipe) {
 		this.x = x;
 		this.y = y;
 		this.controledByUser = controledByUser;
 		this.equipe = equipe;
 	}
 	//utilisé
-	protected int equipe;
+	protected boolean equipe;
 	
-	public int getEquipe() {
+	public boolean getEquipe() {
 		return equipe;
 	}
-	public void setEquipe(int equipe) {
+	public void setEquipe(boolean equipe) {
 		this.equipe = equipe;
 	}
 	

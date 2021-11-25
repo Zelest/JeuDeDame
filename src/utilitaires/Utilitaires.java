@@ -9,34 +9,34 @@ import model.PionsNoir;
 
 public class Utilitaires {
 	public static void initPlateau(Pions[][] plateau) {
-		//placement des pions noirs
+		//placement des pions noirs = 2
 		for (int i = 0; i < 4; i++) {
 			for (int j = 0; j< 10; j++) {
 				if (i%2!=0) {
 					if (j%2==0) {
-						plateau[i][j]= new PionsNoir(i, j, false, 2);
-						Game.createPion(i,j, false, 2);
+						plateau[i][j]= new PionsNoir(i, j, false);
+						//Game.createPion(i,j, false, 2);
 					}
 				}else if (i%2==0) {
 					if(j%2!=0) {
-						plateau[i][j]= new PionsNoir(i, j, false, 2);
-						Game.createPion(i,j, false, 2);
+						plateau[i][j]= new PionsNoir(i, j, false);
+						//Game.createPion(i,j, false, 2);
 					}
 				}
 			}		
 		}
-		//placement des pions blancs
+		//placement des pions blancs = 1
 		for (int i=6;i<10;i++) {
 			for (int j=0;j<10;j++) {
 				if (i%2!=0) {
 					if (j%2==0) {
-						plateau[i][j]= new PionsBlanc(i, j, false, 1);
-						Game.createPion(i,j, false, 1);
+						plateau[i][j]= new PionsBlanc(i, j, false);
+						//Game.createPion(i,j, false, true);
 					}
 				}else if (i%2==0) {
 					if(j%2!=0) {
-						plateau[i][j]= new PionsBlanc(i, j, false, 1);
-						Game.createPion(i,j, false, 1);
+						plateau[i][j]= new PionsBlanc(i, j, false);
+						//Game.createPion(i,j, false, 1);
 					}
 				}
 			}
@@ -51,9 +51,9 @@ public class Utilitaires {
 				System.out.print("|");
 				if(plateau[i][j]==null) {
 					System.out.print(" ");
-				}else if (plateau[i][j].getEquipe()==1) {
+				}else if (plateau[i][j].getEquipe()==true) {
 					System.out.print("B");
-				}else if (plateau[i][j].getEquipe()==2) {
+				}else if (plateau[i][j].getEquipe()==false) {
 					System.out.print("N");
 				}
 			}
