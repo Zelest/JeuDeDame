@@ -9,7 +9,7 @@ import utilitaires.Inputs;
 public class Game {
 	int Largeur = 10;
 	int Hauteur = 10;
-	Pions[][] plateau = new Pions[Largeur][Hauteur];
+	Pions[] plateau = new Pions[51];
 	static Joueur joueur1 = new Joueur();
 	static Joueur joueur2 = new Joueur();
 	
@@ -20,20 +20,20 @@ public class Game {
 	public void game() {
 		menuPrincipal();
 		Utilitaires.initPlateau(plateau);
+		Utilitaires.printPlateau(plateau);
 		do {
-			clearScreen();
+			//clearScreen();
 			Utilitaires.printPlateau(plateau);
 			deplacementPion();
 			nextTour();
 		} while (true);
 	}
-		static void clearScreen() {  
+	static void clearScreen() {  
 	    System.out.print("\033[H\033[2J");  
 	    System.out.flush();  
 	}  
 
 	static void initUsernames() {
-
 		do {
 			System.out.println("nom joueur 1:");
 			joueur1.setNom(input.stringInput());
@@ -43,8 +43,6 @@ public class Game {
 			joueur2.setNom(input.stringInput());
 		} while (joueur2.getNom() == "");
 	}
-
-	//static ArrayList<Pions> alPions = new ArrayList<Pions>();
 
 	public void deplacementPion() {
 		System.out.println("Entrer la position du pion que vous voulez bouger (ex: A3 : ");
@@ -77,22 +75,28 @@ public class Game {
 				}
 			}
 		}
+		// PAS TOUCHER EN HAUT
 		if (conditionLettre&&conditionChiffre) {
-			int indexXOfN=0;
+			int lettre=0; //
 			for (int i=0;i<row.length;i++) {
-				if (row[i]==tArrayOfChar[indexLettre]) indexXOfN=i;
+				if (row[i]==tArrayOfChar[indexLettre]) lettre=i+1;
 			}
-			if (this.plateau[chiffre][indexXOfN]!=null) {
-				System.out.println("pion existe");
-				if (this.plateau[chiffre][indexXOfN].getEquipe()==this.tour) {
+			if ((chiffre==0&&lettre%2==0)||chiffre%2==lettre%2) {
+//				System.out.print(chiffre);
+//				System.out.print(lettre);
+//				System.out.println(chiffre*5+(int)Math.ceil((double)lettre/2));
+//				System.out.println(this.plateau[chiffre*5+(int)Math.ceil((double)lettre/2)].getIndex());
+				if (this.plateau[chiffre*5+(int)Math.ceil((double)lettre/2)].getEquipe()==this.tour) {
 					System.out.println("le pion appartient a la bonne equipe");
+					// supprime le pion TEST
+					this.plateau[chiffre*5+(int)Math.ceil((double)lettre/2)]=null;
 					return true;
 				}else {
 					System.out.println("le pion appartient PAS a la bonne equipe");
 					return false;
 				}
 			}else {
-				System.out.println("pion existe pas");
+				System.out.println("Le pion n'existe pas.");
 				return false;
 			}
 		}
@@ -102,11 +106,6 @@ public class Game {
 	public void move() {
 
 	}
-
-//	public static void createPion(int x, int y, Boolean controledByUser, boolean equipe) {
-//		alPions.add(new Pions(x, y, controledByUser, equipe));
-//
-//	}
 
 	public static void menuPrincipal() {
 

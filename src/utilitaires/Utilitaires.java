@@ -8,57 +8,44 @@ import model.PionsBlanc;
 import model.PionsNoir;
 
 public class Utilitaires {
-	public static void initPlateau(Pions[][] plateau) {
-		//placement des pions noirs = 2
-		for (int i = 0; i < 4; i++) {
-			for (int j = 0; j< 10; j++) {
-				if (i%2!=0) {
-					if (j%2==0) {
-						plateau[i][j]= new PionsNoir(i, j, false);
-						//Game.createPion(i,j, false, 2);
-					}
-				}else if (i%2==0) {
-					if(j%2!=0) {
-						plateau[i][j]= new PionsNoir(i, j, false);
-						//Game.createPion(i,j, false, 2);
-					}
-				}
-			}		
+	public static void initPlateau(Pions[] plateau) {
+		for (int i = 1; i <21; i++) {
+			plateau[i]=new PionsNoir(i,false);
 		}
-		//placement des pions blancs = 1
-		for (int i=6;i<10;i++) {
-			for (int j=0;j<10;j++) {
-				if (i%2!=0) {
-					if (j%2==0) {
-						plateau[i][j]= new PionsBlanc(i, j, false);
-						//Game.createPion(i,j, false, true);
-					}
-				}else if (i%2==0) {
-					if(j%2!=0) {
-						plateau[i][j]= new PionsBlanc(i, j, false);
-						//Game.createPion(i,j, false, 1);
-					}
-				}
-			}
+		for (int i=31;i<51;i++) {
+			plateau[i]=new PionsBlanc(i,false);
 		}
 	}
 	
-	public static void printPlateau(Pions[][] plateau) {
+	public static void printPlateau(Pions[] plateau) {
+		int count =0;
 		System.out.println("  A B C D E F G H I J");
-		for(int i = 0; i < 10; i++) {
-			System.out.print(i);
-			for(int j = 0; j < 10; j++) {
+		for (int i=1;i<51;i++) {
+			if(i==1||i%10==1) {
+				System.out.print(count);
+				System.out.print("| |");
+			}else if(i==6||i%10==6) {
+				System.out.print(count);
 				System.out.print("|");
-				if(plateau[i][j]==null) {
-					System.out.print(" ");
-				}else if (plateau[i][j].getEquipe()==true) {
-					System.out.print("B");
-				}else if (plateau[i][j].getEquipe()==false) {
-					System.out.print("N");
-				}
 			}
-			System.out.print("|");
-			System.out.println(i);
+			
+			if (plateau[i] == null) {
+				System.out.print(" ");
+			}else {
+				System.out.print(plateau[i].getSkin());				
+			}
+			//  Les cases blanches ou saut à la ligne
+			if (i%5!=0) {
+				System.out.print("| |");
+			}else if(i==5||i%10==5) {
+				System.out.print("|");
+				System.out.println(count);
+				count++;
+			}else {
+				System.out.print("| |");
+				System.out.println(count);
+				count++;
+			}
 		}
 		System.out.println("  A B C D E F G H I J");
 	}
