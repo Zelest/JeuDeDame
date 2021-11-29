@@ -20,7 +20,6 @@ public class Game {
 	public void game() {
 		menuPrincipal();
 		Utilitaires.initPlateau(plateau);
-		Utilitaires.printPlateau(plateau);
 		do {
 			//clearScreen();
 			Utilitaires.printPlateau(plateau);
@@ -29,7 +28,7 @@ public class Game {
 		} while (true);
 	}
 	static void clearScreen() {  
-	    System.out.print("\033[H\033[2J");  
+	    System.out.print("\033[H\033[2J");
 	    System.out.flush();  
 	}  
 
@@ -82,10 +81,6 @@ public class Game {
 				if (row[i]==tArrayOfChar[indexLettre]) lettre=i+1;
 			}
 			if ((chiffre==0&&lettre%2==0)||chiffre%2==lettre%2) {
-//				System.out.print(chiffre);
-//				System.out.print(lettre);
-//				System.out.println(chiffre*5+(int)Math.ceil((double)lettre/2));
-//				System.out.println(this.plateau[chiffre*5+(int)Math.ceil((double)lettre/2)].getIndex());
 				if (this.plateau[chiffre*5+(int)Math.ceil((double)lettre/2)].getEquipe()==this.tour) {
 					System.out.println("le pion appartient a la bonne equipe");
 					// supprime le pion TEST
@@ -102,7 +97,15 @@ public class Game {
 		}
 		return false;
 	}
-
+	boolean verifMouvement(int index,int newPosition) {
+		//Verifier la nouvelle position
+		//la pos de index est verifié
+		
+		if (this.plateau[newPosition]==null) {
+			
+		}
+		return false;
+	}
 	public void move() {
 
 	}
