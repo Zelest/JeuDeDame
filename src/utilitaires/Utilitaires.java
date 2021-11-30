@@ -10,11 +10,12 @@ import model.PionsNoir;
 public class Utilitaires {
 	public static void initPlateau(Pions[] plateau) {
 		for (int i = 1; i <21; i++) {
-			plateau[i]=new PionsNoir(i,false);
+			plateau[i]=new PionsNoir(i);
 		}
 		for (int i=31;i<51;i++) {
-			plateau[i]=new PionsBlanc(i,false);
+			plateau[i]=new PionsBlanc(i);
 		}
+		plateau[29]=new PionsNoir(29);
 	}
 	
 	public static void printPlateau(Pions[] plateau) {
