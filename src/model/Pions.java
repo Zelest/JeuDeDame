@@ -2,10 +2,10 @@ package model;
 
 public class Pions {
 
-	//utilisé
 	int index;
 	boolean equipe;
 	char skin;
+	boolean dame;
 	
 	public Pions(int index, boolean equipe,char skin) {
 		this.index=index;
@@ -18,9 +18,7 @@ public class Pions {
 
 	public void setSkin(char skin) {
 		this.skin = skin;
-	}
-
-	
+	}	
 	public boolean getEquipe() {
 		return equipe;
 	}

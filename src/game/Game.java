@@ -14,6 +14,8 @@ public class Game {
 	boolean tour = true;
 	static Inputs input = new Inputs();
 	static final char[] row = { 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J' };
+	int noir=0;
+	int blanc=0;
 
 	public void game() {
 		menuPrincipal();
@@ -23,9 +25,19 @@ public class Game {
 			Utilitaires.printPlateau(plateau);
 			deplacementPion();
 			nextTour();
-		} while (true);
+		} while (gameOver());
 	}
-
+	boolean gameOver() {
+		if (noir==20) { 
+			System.out.println("Victoire des Noirs.");
+			return false;
+		}
+		else if (blanc==20) {
+			System.out.println("Victoire des Blancs.");
+			return false;
+		}
+		return true;
+	}
 	static void clearScreen() {
 		System.out.print("\033[H\033[2J");
 		System.out.flush();
@@ -61,18 +73,22 @@ public class Game {
         int p2 =verifCapture(p1,p3);
         p31 = verifDeplacement(p1,p3);
         if(p2 !=-1) {
-        	System.out.println("test ligne 64");
         	this.plateau[p2]=null;
         	this.plateau[p3]=this.plateau[p1];
         	this.plateau[p1]=null;
         }else if (p31 != -1) {
         	this.plateau[p31]=this.plateau[p1];
         	this.plateau[p1]=null;
+        	countCapture();
         }else {
         	System.out.println("Le pion sélectionné ne peut pas bouger.");
         	deplacementPion();
         }
     }
+	void countCapture() {
+		if(tour) blanc+=1;
+		else noir+=1;
+	}
 	// retourne nouvelle position de p1 (p3)
 	public int verifDeplacement(int p1, int p3) {
 		int[] positionPossibleP3 = { p1-5, p1-4, p1+5, p1+6 };
@@ -86,7 +102,6 @@ public class Game {
 				return this.plateau[positionPossibleP3[i]-1]==null ? positionPossibleP3[i]-1:-1;
 			}
 		}
-		System.out.println("test ligne 89");
 		return -1;
 	}
 
@@ -126,7 +141,6 @@ public class Game {
 				if (!testP1 && this.plateau[chiffre * 5 + (int) Math.ceil((double) lettre / 2)] == null) {
 					return chiffre * 5 + (int) Math.ceil((double) lettre / 2);
 				} else if (this.plateau[chiffre * 5 + (int) Math.ceil((double) lettre / 2)].getEquipe() == this.tour) {
-					System.out.println("le pion appartient a la bonne equipe");
 					return chiffre * 5 + (int) Math.ceil((double) lettre / 2);
 				} else {
 					System.out.println("Mauvaise entrée.");
@@ -170,12 +184,7 @@ public class Game {
 	}
 
 	public static void menuPrincipal() {
-
-		System.out.println("Bienvenue sur notre Jeux de Dame");
-		System.out.println("1 Joueur contre Ordinateur");
-		System.out.println("2 Joueur contre Joueur");
-		System.out.println("3 Exit");
-		System.out.println("4 test");
+		System.out.println("Bienvenue sur notre Jeux de Dame\n1 Joueur contre Ordinateur\n2 Joueur contre Joueur\n3 Exit");
 
 		int saisieMenu = Utilitaires.readInt();
 
@@ -187,15 +196,9 @@ public class Game {
 		case 2:
 			System.out.println("Joueur contre Joueur");
 			initUsernames();
-
 			break;
 		case 3:
 			System.out.println("Au revoir");
-			break;
-		// test
-		case 4:
-			System.out.println("Entrer la colonne du pions que vous voulez bouger : ");
-			Utilitaires.readChar();
 			break;
 		}
 	}
