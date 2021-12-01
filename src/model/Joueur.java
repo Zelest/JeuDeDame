@@ -1,7 +1,7 @@
 package model;
 
 public class Joueur {
-	String Nom="";
+	static String Nom="";
 	// blanc=true,noir=false
 	boolean pions;
 	
@@ -9,7 +9,7 @@ public class Joueur {
 		return Nom;
 	}
 	public void setNom(String nom) {
-		this.Nom = nom;
+		Joueur.Nom = nom;
 	}
 	public boolean isPions() {
 		return pions;

@@ -1,8 +1,18 @@
 package utilitaires;
 
+import java.awt.List;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.io.UnsupportedEncodingException;
+import java.util.Random;
 import java.util.Scanner;
 
 import game.Game;
+import model.Joueur;
 import model.Pions;
 import model.PionsBlanc;
 import model.PionsNoir;
@@ -10,10 +20,10 @@ import model.PionsNoir;
 public class Utilitaires {
 	public static void initPlateau(Pions[] plateau) {
 		for (int i = 1; i <21; i++) {
-			plateau[i]=new PionsNoir(i,false);
+			plateau[i]=new PionsNoir(i);
 		}
 		for (int i=31;i<51;i++) {
-			plateau[i]=new PionsBlanc(i,false);
+			plateau[i]=new PionsBlanc(i);
 		}
 	}
 	
@@ -73,40 +83,48 @@ public class Utilitaires {
 		return s;
 	}
 	
-	public static char tradPions(char x) {
-		if (x == 'A') {
-			x = 1;
-		}else if (x == 'B') {
-			x = 2;
-		}else if (x == 'C') {
-			x = 3;
-		}else if (x == 'D') {
-			x = 4;
-		}else if (x == 'E') {
-			x = 5;
-		}else if (x == 'F') {
-			x = 6;
-		}else if (x == 'G') {
-			x = 7;
-		}else if (x == 'H') {
-			x = 8;
-		}else if (x == 'I') {
-			x = 9;
-		}else {
-			x = 10;
+	
+	public static void createFile(String nomPartie) {
+		try {
+			File file = new File(nomPartie);
+
+			   // créer le fichier s'il n'existe pas
+			   if (!file.exists()) {
+			    file.createNewFile();
+			   }
+		} catch (Exception e) {
+			// TODO: handle exception
 		}
-		return x;
 	}
 	
 	
 	
-	
-	
-	
-	
-	
-	
-	
+	public static void write(String in, String nomPartie) {
+		FileWriter fw = null;
+		BufferedWriter bw = null;
+		PrintWriter out = null;
+		String str = "";
+			   
+		if (Game.countTour % 2 == 0) {
+			str = Game.nom1 + " joue " + in;
+		}else {
+			str = Game.nom2 + " joue " + in;
+		}
+			   
+			   
+			   try {
+				    fw = new FileWriter(nomPartie, true);
+				    bw = new BufferedWriter(fw);
+				    out = new PrintWriter(bw);
+				    out.println(str);
+				    out.close();
+				} catch (IOException e) {
+				    //exception handling left as an exercise for the reader
+					e.printStackTrace();
+				}
+		
+			  
+	}
 	
 	
 	

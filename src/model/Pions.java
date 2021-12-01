@@ -1,16 +1,14 @@
 package model;
 
 public class Pions {
-	
-	boolean controledByUser;
-	//utilisé
+
 	int index;
 	boolean equipe;
 	char skin;
+	boolean dame;
 	
-	public Pions(int index, boolean controledByUser, boolean equipe,char skin) {
+	public Pions(int index, boolean equipe,char skin) {
 		this.index=index;
-		this.controledByUser = controledByUser;
 		this.equipe = equipe;
 		this.skin = skin;
 	}
@@ -20,9 +18,7 @@ public class Pions {
 
 	public void setSkin(char skin) {
 		this.skin = skin;
-	}
-
-	
+	}	
 	public boolean getEquipe() {
 		return equipe;
 	}
@@ -38,11 +34,4 @@ public class Pions {
 		this.index = index;
 	}
 
-	public boolean isControledByUser() {
-		return controledByUser;
-	}
-	public void setControledByUser(boolean controledByUser) {
-		this.controledByUser = controledByUser;
-	}
-	
 }
