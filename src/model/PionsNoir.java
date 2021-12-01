@@ -3,7 +3,7 @@ package model;
 public class PionsNoir extends Pions {
 
 	public PionsNoir(int index) {
-		super(index, false,'N');
+		super(index, false,'n');
 		// TODO Auto-generated constructor stub
 	}
 	

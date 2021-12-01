@@ -1,46 +1,60 @@
 package game;
 
-import model.Pions;
+import model.Bot;
+import model.Dame;
 import model.Joueur;
-
-import utilitaires.Utilitaires;
+import model.Pions;
 import utilitaires.Inputs;
+import utilitaires.Utilitaires;
 
 public class Game {
 	Pions[] plateau = new Pions[51];
 	static Joueur joueur1 = new Joueur();
 	static Joueur joueur2 = new Joueur();
+	static Bot bot;
 
 	boolean tour = true;
 	static Inputs input = new Inputs();
 	static final char[] row = { 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J' };
-	int noir=0;
-	int blanc=0;
+	int noir = 0;
+	int blanc = 0;
 
 	public void game() {
 		menuPrincipal();
 		Utilitaires.initPlateau(plateau);
 		do {
 			// clearScreen();
-			Utilitaires.printPlateau(plateau);
-			deplacementPion();
+			if (bot != null && this.tour == false) {
+				this.plateau = bot.deplacement(this.plateau,0);
+			} else {
+				Utilitaires.printPlateau(plateau);
+				deplacementPion();
+			}
 			nextTour();
 		} while (gameOver());
 	}
+
 	boolean gameOver() {
-		if (noir==20) { 
+		if (noir == 20) {
 			System.out.println("Victoire des Noirs.");
 			return false;
-		}
-		else if (blanc==20) {
+		} else if (blanc == 20) {
 			System.out.println("Victoire des Blancs.");
 			return false;
 		}
 		return true;
 	}
+
 	static void clearScreen() {
 		System.out.print("\033[H\033[2J");
 		System.out.flush();
+	}
+
+	static void initUsername() {
+		do {
+			System.out.println("nom joueur :");
+			joueur1.setNom(input.stringInput());
+		} while (joueur1.getNom() == "");
 	}
 
 	static void initUsernames() {
@@ -55,51 +69,69 @@ public class Game {
 	}
 
 	public void deplacementPion() {
-        int p1 =-1;
-        int p3 =-1;
-        int p31 = -1;
-        System.out.println("Entrer la position du pion que vous voulez bouger (ex: A3 : ");
-        String in ="";
-        do {
-            in = input.stringInput();
-            p1=testInputChoixPions(in,true);
-        } while (p1==0);  
-        System.out.println("Entrer la nouvelle position du pion selectionné.");
-        do {
-            in = input.stringInput();
-            p3 = testInputChoixPions(in,false);
-        }while (p3==0);
-        // Verifie les regles et retourne des positions
-        int p2 =verifCapture(p1,p3);
-        p31 = verifDeplacement(p1,p3);
-        if(p2 !=-1) {
-        	this.plateau[p2]=null;
-        	this.plateau[p3]=this.plateau[p1];
-        	this.plateau[p1]=null;
-        }else if (p31 != -1) {
-        	this.plateau[p31]=this.plateau[p1];
-        	this.plateau[p1]=null;
-        	countCapture();
-        }else {
-        	System.out.println("Le pion sélectionné ne peut pas bouger.");
-        	deplacementPion();
-        }
-    }
-	void countCapture() {
-		if(tour) blanc+=1;
-		else noir+=1;
+		int p1 = -1;
+		int p3 = -1;
+		int p31 = -1;
+		int indexDame= -1;
+		System.out.println("Entrer la position du pion que vous voulez bouger (ex: A3 : ");
+		String in = "";
+		do {
+			in = input.stringInput();
+			p1 = testInputChoixPions(in, true);
+		} while (p1 == 0);
+		System.out.println("Entrer la nouvelle position du pion selectionné.");
+		do {
+			in = input.stringInput();
+			p3 = testInputChoixPions(in, false);
+		} while (p3 == 0);
+		// Verifie les regles et retourne des positions
+		int p2 = verifCapture(p1, p3);
+		p31 = verifDeplacement(p1, p3);
+		//Dame
+		if (plateau[p1].getSkin()=='N'|| plateau[p1].getSkin()=='B') {
+			int[][] possibilites = Dame.getPossibilite(p1);
+			for (int i=0;i<possibilites.length;i++) {
+				if (Dame.existe(possibilites[i],p3)) {
+					if(Dame.capture(possibilites[i],i,p2,p3)) {
+						
+					}else if(Dame.deplacement(plateau, possibilites[i], p2, p3)) {
+						
+					}
+				}
+			}
+		}else if (p2 != -1) {//capture
+			this.plateau[p2] = null;
+			bot.supprPions(p2);
+			this.plateau[p3] = this.plateau[p1];
+			this.plateau[p1] = null;
+		} else if (p31 != -1) {//deplacement
+			this.plateau[p31] = this.plateau[p1];
+			this.plateau[p1] = null;
+			countCapture();
+		} else {
+			System.out.println("Le pion sélectionné ne peut pas bouger.");
+			deplacementPion();
+		}
 	}
+
+	void countCapture() {
+		if (tour)
+			blanc += 1;
+		else
+			noir += 1;
+	}
+
 	// retourne nouvelle position de p1 (p3)
 	public int verifDeplacement(int p1, int p3) {
-		int[] positionPossibleP3 = { p1-5, p1-4, p1+5, p1+6 };
-		
+		int[] positionPossibleP3 = { p1 - 5, p1 - 4, p1 + 5, p1 + 6 };
+
 		for (int i = 0; i < positionPossibleP3.length; i++) {
 			if (positionPossibleP3[i] < 1 || positionPossibleP3[i] > 51) {
-				
+
 			} else if (p3 == positionPossibleP3[i]) { // impair
-				return this.plateau[positionPossibleP3[i]]==null ? positionPossibleP3[i]:-1;
-			}else if(p3==positionPossibleP3[i]-1){ //pair
-				return this.plateau[positionPossibleP3[i]-1]==null ? positionPossibleP3[i]-1:-1;
+				return this.plateau[positionPossibleP3[i]] == null ? positionPossibleP3[i] : -1;
+			} else if (p3 == positionPossibleP3[i] - 1) { // pair
+				return this.plateau[positionPossibleP3[i] - 1] == null ? positionPossibleP3[i] - 1 : -1;
 			}
 		}
 		return -1;
@@ -184,23 +216,28 @@ public class Game {
 	}
 
 	public static void menuPrincipal() {
-		System.out.println("Bienvenue sur notre Jeux de Dame\n1 Joueur contre Ordinateur\n2 Joueur contre Joueur\n3 Exit");
+		System.out.println(
+				"Bienvenue sur notre Jeux de Dame\n1 Joueur contre Ordinateur\n2 Joueur contre Joueur\n3 Exit");
 
-		int saisieMenu = Utilitaires.readInt();
-
-		switch (saisieMenu) {
-		case 1:
-			System.out.println("Joueur contre Ordinateur");
-			// entrer le nom du joueur et l'enregistrer
-			break;
-		case 2:
-			System.out.println("Joueur contre Joueur");
-			initUsernames();
-			break;
-		case 3:
-			System.out.println("Au revoir");
-			break;
-		}
+		int saisieMenu =0;
+		do {
+			saisieMenu = Utilitaires.readInt();
+			switch (saisieMenu) {
+			case 1:
+				System.out.println("Joueur contre Ordinateur");
+				initUsername();
+				bot = new Bot();
+				break;
+			case 2:
+				System.out.println("Joueur contre Joueur");
+				initUsernames();
+				break;
+			case 3:
+				System.out.println("Au revoir");
+				break;
+			}
+		}while(saisieMenu==0);
+		
 	}
 
 	void nextTour() {
